@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} Quvivo</title>
+    <meta name="description" content="Darmowy portal ogłoszeniowy">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style81.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+      <link rel="icon"
+      type="image/png"
+      href="static/image/www.png">
+</head>
+<body>
+
+    <div class="container-fluid header-top">
+        <div class="col-8 offset-2">
+            <ul class="nav ">
+                {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('login')}}">Logowanie</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('register') }}">Rejestracja</a>
+                </li>
+                {% endif %}
+              </ul>
+
+             <ul class="nav col-4 logout">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item  ">
+                  <a class="nav-link" href="{{ url_for('logout') }}">Wyloguj</a>
+                </li>
+                 {% endif %}
+             </ul>
+        </div>
+
+
+    </div>
+    <div class="container menu ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid pr-0 pl-0">
+              <h1><a class="navbar-brand title" href="{{ url_for('home')}}">Quvivo</a></h1>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('home')}}">Strona Główna</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('show_offers')}}">Ogłoszenia</a>
+                  </li>
+                     <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('forum')}}">Forum</a>
+                  </li>
+                    {% if current_user.is_authenticated %}
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Konto
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="#">Ulubione ogłoszenia</a>
+                          <a class="dropdown-item" href="{{url_for('new_post') }}">Dodaj ogłoszenie</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{{url_for('account')}}">Profil</a>
+                        </div>
+                      </li>
+                    {% endif %}
+                </ul>
+
+              </div>
+            </div>
+
+          </nav>
+    </div>
+     <div class="header">
+              <div class="progress-container">
+                <div class="progress-bar" id="myBar"></div>
+              </div>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                        {% if category == "success" %}
+                        <div class="row col-6 text-center offset-3 alert alert-{{category}}" >
+                            <div class="col-11">
+                        {{message}}
+                        </div>
+                        <i class="znaczek text-right  fas fa-times"  onclick=delete_flash(this)></i>
+                            </div>
+                        {% else %}
+                            <div class="row col-4 text-center offset-4 alert alert-{{category}}" >
+                                <div class="col-11">
+                                {{message}}
+                                </div>
+                                </div>
+                        {% endif %}
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block content %}
+    <div class="search" id="search">
+        <div class="content rounded">
+            <div class="search-input">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="text-center mb-5">Znajdź swoje mieszkanie</h2>
+                    </div>
+
+                    <div class="col-10">
+                        <form method="POST">
+                            <input class="form-control" type="text" name="miasto" placeholder="Wybierz miasto">
+                            <div class="col-2">
+                                <button type="submit " class="search_flat btn text-white pr-3 pl-3">Szukaj</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="content">
+                        <h2 class="mb-3">Oferty mieszkań</h2>
+                        <p>Mieszkania są wyszukiwanie na podstawie miasta, które użytkownik poda. Na podstronie ogłoszenia są wyświetlane wszytskie ogłoszenia dobrane na podstawie hasła.</p>
+                    </div>
+                </div>
+                <div class="col-6 image-head">
+                    <img id="mainPhoto" src="static/image/living.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="call-to-action">
+      <div class="content">
+          <div class="content-text">
+              <h2>Wyszukaj oferty mieszkań</h2>
+              <p>dla siebie z wybranego miasta</p>
+              <a href="#search" ><button type="button" class="btn btn-outline-primary" >Szukaj</button></a>
+          </div>
+      </div>
+  </section>
+    <div class="section p-5">
+        <div class="col-4 offset-4 mt-5">
+            <h1 class="text-center">Losowe mieszkania z</h1>
+        </div>
+        <div class="card-body col-8 offset-2  row">
+            {% for offert in offerts %}
+            <div class="col-4 mt-3 mb-3 text-center mt-5 pb-5" style="min-height: 80px;" >
+              <a href="{{offert.link}}" target="_blank">
+                <div class="offert-list card border " >
+                    <img class="image col-10 offset-1 mt-3" src="{{offert.image}}">
+                    <p class="mt-2 col-12 pl-5 pr-5 ">{{offert.Tytuł}}</p>
+                    <p>{{offert.Cena}}</p>
+                </div>
+              </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <section id="Forum" class="mb-5">
+        <div class="col-8 offset-2 forum">
+            <div class="text-center text-white">
+                <a href="{{url_for('forum')}}"><h2>Forum</h2></a>
+                <p>Miejsce do umieszczania ogłoszenia o szukanych mieszkaniach i ofertach przez wszystkich użytkownika</p>
+            </div>
+            <article class="ogłoszenie media content-section col-10 offset-1  border p-3 mt-5 mb-2 rounded">
+                <img class="rounded-circle account-img text-center" src="{{ url_for('static', filename='profilowe/' + posts.autor.image_file) }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ posts.autor.username }}</a>
+                  <small class="text-muted">{{ posts.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <h2><a class="article-title" >{{ posts.title }}</a></h2>
+                <p class="article-content mt-3">{{ posts.content }}</p>
+              </div>
+                <div class="text-right mt-5 mr-3">Liczba odpowiedzi: 25</div>
+            </article>
+        </div>
+    </section>
+
+    <section id="websites_use " class="mt-5">
+        <div class="col-8 offset-2  text-center pb-5">
+            <h2> Strony wykorzystywane do wyszukiwania ogłoszeń</h2>
+            <div class="col-12 row mb-5 text-center oferty">
+                <div class="col-4 mt-5">
+                    <img class="logo" src="static/image/olx.png">
+                </div>
+                <div class="col-4 mt-5 float-left">
+                    <img class="logo" src="static/image/allegro.png">
+                </div>
+                <div class="col-4 mt-5 float-left">
+                    <img class="logo" src="static/image/otodom.png">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <p class="text-dark mb-0"><strong>© 2021 Copyright:</strong></p>
+                            <p>Paweł Rutkowski</p>
+                        </div>
+                        <div class="col-2 text-center">
+                                <a href="https://www.linkedin.com/in/pawel-rutkowski-/" target="_blank" ><i class="linkedin rounded ikonka fab fa-linkedin-in"/></i></a>
+                        </div>
+                        <div class="col-6">
+                            <a class="text-dark" href="https://github.com/Pawelooo"  target="_blank"><i class="ikonka fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-6 text-right">
+                  <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Strona główna</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Ogłoszenia</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+    function delete_flash(flash){
+        $(flash).parent().remove()
+    }</script>
+    <script>
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+function myFunction() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("myBar").style.width = scrolled + "%";
+}
+</script>
+<script>
+    let images = ['static/image/flats2.jpg', 'static/image/flats3.jpg','static/image/flats4.jpg','static/image/flats5.jpg'];
+
+    let index = 1;
+    const imgElement = document.querySelector('#mainPhoto');
+
+    function change() {
+       imgElement.src = images[index];
+       index > 1 ? index = 0 : index++;
+    }
+
+    window.onload = function () {
+        setInterval(change, 10000);
+    };
+</script>
+
+</body>
+</html>

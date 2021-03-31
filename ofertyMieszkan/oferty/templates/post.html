@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}
+{{title}} |
+{% endblock %}
+{% block content %}
+<div class="col-8 offset-2 ">
+    <article class="media content-section col-12  border p-3 mt-2 mb-2">
+        <img class="rounded-circle account-img text-center" src="{{ url_for('static', filename='profilowe/' + post.autor.image_file) }}">
+        <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ post.autor.username }}</a>
+          <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <h2 class="article-title" >{{ post.title }}</h2>
+        <p class="article-content mt-3">{{ post.content }}</p>
+      </div>
+    </article>
+</div>
+<div class="content col-8 offset-2 mt-5 border-bottom mb-4">
+    <h2 class="text-right">Komentarze</h2>
+    {% for comment in comment %}
+        <div class="card-body col-12 border mb-3">
+            <div class="col-3">
+                <p> {{comment.date_commented.strftime('%Y-%m-%d')}}</p>
+            </div>
+            <div class="col-9">
+                <p>{{ comment.text }}</p>
+            </div>
+        </div>
+     {% endfor %}
+
+</div>
+{% if current_user.is_authenticated %}
+<div class="content-section col-8 offset-2">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group ">
+                <div class="form-group">
+                    {% if form.text.errors %}
+                        {{ form.text(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.text.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.text(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endif %}
+
+
+{% endblock content %}

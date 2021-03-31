@@ -1,0 +1,191 @@
+body {
+    font-family: 'Montserrat', sans-serif !important;
+
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    max-width: 1300px !important;
+}
+
+.header-top {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #3db36b !important;
+}
+
+.header-top a {
+    color: #FFF;
+    font-weight: bold;
+}
+
+.menu {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.search {
+    background: url('../image/flats.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    min-height: 80vh;
+    padding-top: 10%;
+}
+.title{
+    font-size: 36px !important;
+}
+
+.search .content {
+    background: rgba(255, 255, 255, 0.4);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 20vh;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+    }
+
+.btn-outline-primary {
+    border-radius: 0  !important;
+    border-color: #3db36b !important;
+    color: #3db36b !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: transparent  !important;
+}
+
+
+.section-1 {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+.section-1 .content {
+    padding-top: 3rem;
+    padding-right: 5rem;
+    text-align: justify;
+}
+
+.section-1 img {
+    width: 100%;
+}
+
+#call-to-action {
+    background-color: #3db36b;
+    min-height: 40vh;
+    color: #FFF;
+}
+
+#call-to-action .content {
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#call-to-action .content .btn-outline-primary {
+    margin-top: 3rem;
+    border: 1px solid #FFF !important;
+    color: #FFF !important;
+    padding: 0.8rem 2rem;
+}
+.srodek {
+    font-size: 20px;
+    padding-top: 3% !important;
+}
+.tabela{
+    background-color: #ebf7f0;
+    margin-bottom: 5%;
+}
+.tabela-gora{
+    background-color: #63c288;
+}
+.ikonka{
+    font-size: 40px;
+}
+.linkedin {
+    background-color: #007bff;
+    color: #FFF;
+    padding: 5%;
+}
+
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+}
+.znaczek{
+    font-size: 20px;
+    padding-right: 6%;
+    margin-top: 0.25%;
+}
+.account-img {
+    height: 100px;
+    width: 100px;
+    margin-right: 3%;
+}
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #4caf50;
+  width: 0%;
+}
+.image{
+    height: 250px;
+    width: 250px;
+}
+.logout{
+    margin-left: 93%;
+}
+.logo{
+    height: 110px;
+}
+#websites_use {
+    margin-top: 5rem;
+    min-height: 80vh;
+}
+.search_flat{
+    background-color: #3db36b !important;
+    border-color: #3db36b !important;
+    color: #FFFFFF;
+}
+.oferty{
+    margin-top: 5rem;
+}
+#Forum{
+    background: url('../image/group.jpg') no-repeat center center fixed;
+    background-color: #3ca861;
+    min-height: 50vh;
+    padding: 3%;
+}
+.forum{
+    background: rgba(205, 205, 205,0.95);
+    margin-top: 2%;
+    padding: 2% 1%;
+}
+.ogłoszenie{
+    background-color: #FFFFFF;
+    color: black !important;
+}
+footer{
+    border-top: 1px solid black;
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+Oferty |
+{% endblock  %}
+{% block content %}
+        <div class="text-center mt-5 mb-5 p-2 ">
+            <h3>Oferty mieszkan z </h3>
+        </div>
+        <table class="table col-10 offset-1 table-hover  table text-center mb-4">
+            <thead class="tabela-gora text-white">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Zdjęcie</th>
+                    <th scope="col">Tytuł</th>
+                    <th scope="col">Cena</th>
+                    <th scope="col">Dzielnica</th>
+                    <th scope="col">Sprzedaz/Negocjacje</th>
+                    <th scope="col">Link</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody class="tabela">
+                {% for appartment in appartments %}
+                    <tr>
+                      <th scope="row text-center tabela"> </th>
+                            <td><a href="{{appartment.image}}" target="_blank"><img src="{{appartment.image}}" style="height: 150px; width: 250px;"></a></td>
+                            <td class="srodek">{{appartment.title}}</td>
+                            <td class="srodek">{{appartment.price}}</td>
+                            <td class="srodek">{{appartment.city_district}}</td>
+                            <td class="srodek">{{appartment.type_of_sale}}</td>
+                            <td class="srodek"><a href="{{appartment.link}}" target="_blank"> Ogłoszenie</a></td>
+                            <form method="POST" action="{{url_for('home')}}">
+                                <td class="srodek" >{{ form.submit(class="btn btn-outline-info ") }}</td>
+                            </form>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+{% endblock %}
+

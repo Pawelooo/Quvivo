@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="column col-6 offset-3 ">
+        <h1 class="title mb-5 text-center">Nowe ogłoszenie</h1>
+        <div class="box">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+    <!--                <legend class="text-center border-bottom mb-4">Zaloguj się</legend>-->
+                </fieldset>
+                <div class="field">
+                    <div class="control mt-3">
+                         {{ form.title.label(class="form-control-label")}}
+                         {{ form.title(class="form-control form-control-lg")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.content.errors%}
+                                    <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control mt-3">
+                         {{ form.content.label(class="form-control-label")}}
+                         {% if form.content.errors %}
+                            {{ form.content(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.content.errors%}
+                                    <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.content(class="form-control form-control-lg")}}
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="field mt-5">
+                    <div class=" mt-3 mb-2 control  ">
+                        {{ form.submit(class=" btn btn-outline-info")}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+Logowanie |
+{% endblock  %}
+{% block content %}
+<div class="column col-4 offset-4">
+    <h1 class="title mb-5 text-center">Logowanie</h1>
+    <div class="box">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="text-center border-bottom mb-4">Zaloguj się</legend>
+            </fieldset>
+            <div class="field">
+                <div class="control mt-3">
+                     {{ form.username.label(class="form-control-label")}}
+                     {{ form.username(class="form-control form-control-lg")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors%}
+                                <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control mt-3">
+                     {{ form.password.label(class="form-control-label")}}
+                     {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors%}
+                                <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg")}}
+                    {% endif %}
+<!--                    <input class="input is-large" type="password" name="password" placeholder="Password">-->
+                </div>
+            </div>
+            <div class="form-check mt-3 col-5 offset-4">
+                {{form.remember(class="form-check-input")}}
+                {{ form.remember.label(class="form-check-label")}}
+            </div>
+
+            <div class="field mt-5">
+                <div class=" mt-3 mb-2 control col-3 offset-4 ">
+                    {{ form.submit(class=" btn btn-outline-info")}}
+<!--            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>-->
+                </div>
+                </div>
+            <small class="text-muted mt-5  mb-5 col-3 offset-4 ">
+                <a href="#" class="text-center">Zapomniałeś hasła?</a>
+            </small>
+        </form>
+    </div>
+    <div class="border-top pt-3 mt-5">
+        <small class="text-muted col-5 offset-3">
+            Potrzebujesz konta ?<a class="ml-2" href="{{url_for('register')}}}">Zajerestuj się</a>
+        </small>
+    </div>
+</div>
+{% endblock %}
